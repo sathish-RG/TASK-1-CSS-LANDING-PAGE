@@ -1,394 +1,1132 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Trabook</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
-  </head>
-  <body>
-    <nav id="nav-bar">
-      <h1 id="logo">Trabook <img src="nav-image/Vector.svg" alt="logo" /></h1>
-      <ul id="menu">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Distination</a></li>
-        <li><a href="#">Tour</a></li>
-        <li><a href="#">Blog</a></li>
-      </ul>
-      <i class="bi bi-list" id="menu-icon"
-        ><div id="drop-down">
-          <a href="#" class="drop-down-content">Home</a>
-          <a href="#" class="drop-down-content">About</a>
-          <a href="#" class="drop-down-content">About</a>
-          <a href="#" class="drop-down-content">Distination</a>
-          <a href="#" class="drop-down-content">Tour</a>
-          <a href="#" class="drop-down-content">Blog</a>
-          <ul>
-            <li class="drop-down-content">Login</li>
-            <li class="drop-down-content">Sign up</li>
-          </ul>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Trabook - Your Travel Companion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Volkhov:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #fa7436;
+            --light: #ffffff;
+            --dark: #444444;
+            --gray: #666666;
+            --light-gray: #cccccc;
+            --black: #222222;
+            --container-width: 1200px;
+            --section-padding: 80px 0;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: 'Volkhov', serif;
+            line-height: 1.2;
+        }
+
+        .highlighter {
+            color: var(--primary);
+        }
+
+        /* Utility Classes */
+        .container {
+            width: 100%;
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            background-color: #e56730;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(250, 116, 54, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        section {
+            padding: var(--section-padding);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Navigation */
+        #nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            position: relative;
+            z-index: 100;
+        }
+
+        #logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        #logo img {
+            margin-left: 8px;
+        }
+
+        #menu {
+            display: flex;
+            gap: 30px;
+        }
+
+        #menu a {
+            font-weight: 500;
+            transition: color 0.3s;
+            color: var(--dark);
+        }
+
+        #menu a:hover {
+            color: var(--primary);
+        }
+
+        #login-signup {
+            display: flex;
+            gap: 15px;
+        }
+
+        #menu-icon {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 101;
+            color: var(--dark);
+        }
+
+        /* Mobile Menu */
+        #drop-down {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            padding: 80px 20px;
+            transition: right 0.3s ease;
+            z-index: 99;
+        }
+
+        #drop-down.show {
+            right: 0;
+        }
+
+        .drop-down-content {
+            display: block;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            color: var(--dark);
+        }
+
+        /* Hero Section */
+        #home-page {
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .hero-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .main-font {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        #home-p {
+            font-size: 16px;
+            color: var(--gray);
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+
+        #main-img-content {
+            position: relative;
+            flex: 1;
+            min-width: 300px;
+            margin-top: 50px;
+        }
+
+        #home-main-img {
+            display: block;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        #half-circle {
+            position: absolute;
+            width: 300px;
+            height: 150px;
+            background: var(--primary);
+            border-radius: 0 0 150px 150px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        /* Info Cards */
+        .info-card {
+            position: absolute;
+            background: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 3;
+        }
+
+        .info-card img {
+            width: 20px;
+            height: 20px;
+        }
+
+        #award {
+            top: 30%;
+            left: 10%;
+        }
+
+        #star {
+            top: 50%;
+            right: 10%;
+        }
+
+        #explore {
+            bottom: 20%;
+            right: 5%;
+        }
+
+        /* Search Section */
+        #section1 {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+            margin-top: -50px;
+            position: relative;
+            z-index: 5;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .search-field {
+            flex: 1;
+            min-width: 200px;
+            padding: 15px;
+            border-right: 1px solid #eee;
+        }
+
+        .search-field:last-child {
+            border-right: none;
+        }
+
+        .search-field p:first-child {
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .search-field p:last-child {
+            color: var(--gray);
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        /* Features Section */
+        #section2 {
+            background: #f7f8fc;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--gray);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-card img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+        }
+
+        /* Tours Section */
+        .tours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .tour-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .tour-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .tour-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .tour-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .tour-card:hover .tour-img img {
+            transform: scale(1.1);
+        }
+
+        .tour-info {
+            padding: 20px;
+        }
+
+        .tour-location {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .tour-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .tour-price {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tour-price .old-price {
+            text-decoration: line-through;
+            color: var(--gray);
+        }
+
+        .tour-price .current-price {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        .slider-btn {
+            background: white;
+            border: 1px solid #eee;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .slider-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Testimonials */
+        #section4-1 {
+            position: relative;
+        }
+
+        #tree2 {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: -1;
+            opacity: 0.2;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .testimonial img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            position: absolute;
+            top: -30px;
+            left: 30px;
+            border: 3px solid white;
+        }
+
+        .testimonial p {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .testimonial h4 {
+            margin-bottom: 5px;
+        }
+
+        .testimonial .location {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        /* Newsletter */
+        #search-box {
+            background: var(--primary);
+            padding: 60px;
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+            margin: 50px auto;
+            max-width: 800px;
+        }
+
+        #search-box h1 {
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px;
+            border-radius: 5px 0 0 5px;
+            border: none;
+            outline: none;
+        }
+
+        .newsletter-form button {
+            padding: 15px 25px;
+            background: #222;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+
+        /* Blog Section */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .blog-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .blog-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .blog-card:hover .blog-img img {
+            transform: scale(1.1);
+        }
+
+        .blog-content {
+            padding: 20px;
+        }
+
+        .blog-content h3 {
+            margin-bottom: 10px;
+        }
+
+        .blog-date {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        /* Footer */
+        footer {
+            background: #f7f8fc;
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-about {
+            max-width: 300px;
+        }
+
+        .footer-about p {
+            margin: 15px 0;
+            color: var(--gray);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            color: var(--dark);
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary);
+        }
+
+        .footer-links h4 {
+            margin-bottom: 20px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: var(--gray);
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 992px) {
+            :root {
+                --section-padding: 60px 0;
+            }
+            
+            .main-font {
+                font-size: 36px;
+            }
+            
+            #menu {
+                display: none;
+            }
+            
+            #login-signup {
+                display: none;
+            }
+            
+            #menu-icon {
+                display: block;
+            }
+            
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-text {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --section-padding: 50px 0;
+            }
+            
+            .main-font {
+                font-size: 30px;
+            }
+            
+            #section1 {
+                flex-direction: column;
+                padding: 20px;
+            }
+            
+            .search-field {
+                border-right: none;
+                border-bottom: 1px solid #eee;
+                padding: 15px 0;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-form input {
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+            
+            .newsletter-form button {
+                border-radius: 5px;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            :root {
+                --section-padding: 40px 0;
+            }
+            
+            .main-font {
+                font-size: 24px;
+            }
+            
+            #home-main-img {
+                max-width: 90%;
+            }
+            
+            .info-card {
+                position: static;
+                margin: 10px auto;
+                max-width: 80%;
+            }
+            
+            .section-header h1 {
+                font-size: 28px;
+            }
+            
+            #search-box {
+                padding: 30px;
+            }
+            
+            #search-box h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="nav-bar" class="container">
+        <h1 id="logo">Trabook <img src="nav-image/Vector.svg" alt="logo"></h1>
+        <div id="menu" class=" flex flex-row">
+            <p>Home</p>
+            <p>About</p>
+            <p>Destination</p>
+            <p>Tour</p>
+            <p>Blog</p>
         </div>
-      </i>
-      <ul id="login-signup">
-        <button class="sign-up">Login</button>
-        <button class="sign-up">Sign up</button>
-      </ul>
+        <i class="fas fa-bars" id="menu-icon"></i>
+        <div id="drop-down">
+            <a href="#" class="drop-down-content">Home</a>
+            <a href="#" class="drop-down-content">About</a>
+            <a href="#" class="drop-down-content">Destination</a>
+            <a href="#" class="drop-down-content">Tour</a>
+            <a href="#" class="drop-down-content">Blog</a>
+            <a href="#" class="drop-down-content">Login</a>
+            <a href="#" class="drop-down-content">Sign up</a>
+        </div>
+        <div id="login-signup">
+            <p class="btn">Login</p>
+            <p class="btn">Sign up</p>
+        </div>
     </nav>
 
+    <!-- Hero Section -->
     <section id="home-page">
-      <h1 class="main-font">
-        Get started your exciting <span class="highlighter">journey</span>
-        with us.
-      </h1>
-      <img src="home-image/Element.svg" id="flight-bg-1" />
-      <p id="home-p">
-        A Team of experienced tourism professionals will provide you with the
-        best advice and tips for your desire place.
-      </p>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="main-font">Get started your exciting <span class="highlighter">journey</span> with us.</h1>
+                    <p id="home-p">A Team of experienced tourism professionals will provide you with the best advice and tips for your desire place.</p>
+                    <a href="#" class="btn">Discover Now</a>
+                </div>
+                <div id="main-img-content">
+                    <img src="home-image/tourist-with-thumb-up__1_-removebg 1.svg" id="home-main-img" alt="Happy traveler">
+                    <div id="half-circle"></div>
+                    <div class="info-card" id="award">
+                        <img src="home-image/trophy-removebg-preview 1.svg" alt="trophy">
+                        <span>Best Tour Awards</span>
+                    </div>
+                    <div class="info-card" id="star">
+                        <img src="home-image/star 1.svg" alt="star">
+                        <span>27k <small>Customer Reviews</small></span>
+                    </div>
+                    <div class="info-card" id="explore">
+                        <img src="home-image/google-maps 1.svg" alt="map">
+                        <span>EXPLORE <small>Every corner of the world</small></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-      <div id="main-img-content">
-        <img
-          src="home-image/tourist-with-thumb-up__1_-removebg 1.svg"
-          id="home-main-img"
-        />
-        <div id="half-circle"></div>
-        <div id="award">
-          <img src="home-image/trophy-removebg-preview 1.svg" />Best Tour Awards
+    <!-- Search Section -->
+    <section id="section1" class="container">
+        <div class="search-field">
+            <p>Location <img src="home-image/Vector 4855.svg" alt="dropdown"></p>
+            <p>Where are you going</p>
         </div>
-        <div id="star">
-          <img src="home-image/star 1.svg" />27k
-          <span id="star-text" style="font-size: 8px"> Customer Reviewd</span>
+        <div class="search-field">
+            <p>Date <img src="home-image/Vector 4855.svg" alt="dropdown"></p>
+            <p>When you will go</p>
         </div>
-        <div id="explore">
-          <img src="home-image/google-maps 1.svg" />EXPLORE
-          <span id="explore-text" style="font-size: 8px">
-            Every cornar of the world with us</span
-          >
+        <div class="search-field">
+            <p>Guest <img src="home-image/Vector 4855.svg" alt="dropdown"></p>
+            <p>Number of guest</p>
         </div>
-      </div>
-      <button id="discover-button">Discover Now</button>
+        <a href="#" class="btn">Explore Now</a>
     </section>
-    <section id="section1">
-      <div id="div1" style="display: inline; position: absolute">
-        <p style="font-size: 15px">
-          Location
-          <img
-            src="home-image/Vector 4855.svg"
-            alt="dropdown"
-            style="display: inline"
-          />
-        </p>
-        <p style="color: rgb(102, 102, 102, 100%); font-size: 10px">
-          Where are you going
-        </p>
-      </div>
-      <div id="div2" style="display: inline; position: absolute">
-        <p style="font-size: 15px">
-          Date
-          <img
-            src="home-image/Vector 4855.svg"
-            alt="dropdown"
-            style="display: inline"
-          />
-        </p>
-        <p style="color: rgb(102, 102, 102, 100%); font-size: 10px">
-          When you will go
-        </p>
-      </div>
-      <div id="div3" style="display: inline; position: absolute">
-        <p style="font-size: 15px">
-          Guest
-          <img
-            src="home-image/Vector 4855.svg"
-            alt="dropdown"
-            style="display: inline"
-          />
-        </p>
-        <p style="color: rgb(102, 102, 102, 100%); font-size: 10px">
-          Number of guest
-        </p>
-      </div>
-      <button>Explore Now</button>
-    </section>
+
+    <!-- Features Section -->
     <section id="section2">
-      <div id="page-content">
-        <h1 style="font-size: 45px">
-          Things you need
-          <span style="color: rgb(250, 116, 54, 100%)">to do</span>
-        </h1>
-        <p>
-          We ensure that you’ll embark on a perfectly planned, safe vacation at
-          a price you can afford.
-        </p>
-        <div id="Group1">
-          <img src="section-2-img/Group.svg" alt="sample" />
-          <h1>Sign Up</h1>
-          <p>Completes all the work associated with planning and processing</p>
+        <div class="container">
+            <div class="section-header">
+                <h1>Things you need <span class="highlighter">to do</span></h1>
+                <p>We ensure that you'll embark on a perfectly planned, safe vacation at a price you can afford.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <img src="section-2-img/Group.svg" alt="Sign Up">
+                    <h3>Sign Up</h3>
+                    <p>Completes all the work associated with planning and processing</p>
+                </div>
+                <div class="feature-card">
+                    <img src="section-2-img/Group (1).svg" alt="Worth of Money">
+                    <h3>Worth of Money</h3>
+                    <p>After successful access then book from exclusive deals & pricing</p>
+                </div>
+                <div class="feature-card">
+                    <img src="section-2-img/Group (2).svg" alt="Exciting Travel">
+                    <h3>Exciting Travel</h3>
+                    <p>Start and explore a wide range of exciting travel experience.</p>
+                </div>
+            </div>
         </div>
-        <div id="Group2">
-          <img src="section-2-img/Group (1).svg" alt="sample2" />
-          <h1>Worth of Money</h1>
-          <p>
-            After successful access then book from exclusive deals & pricing
-          </p>
-        </div>
-        <div id="Group3">
-          <img src="section-2-img/Group (2).svg" alt="sample3" />
-          <h1>Exciting Travel</h1>
-          <p>Start and explore a wide range of exciting travel experience.</p>
-        </div>
-        <img src="section-2-img/Element.svg" alt="element" id="element" />
-      </div>
     </section>
 
-    <section id="section3">
-      <h1>
-        Exclusive<span style="color: rgb(250, 116, 54, 100%)">
-          deals & discounts</span
-        >
-      </h1>
-      <p>
-        We ensure that you’ll embark on a perfectly planned, safe vacation at a
-        price you can afford.
-      </p>
-      <div id="img1">
-        <img src="section-3-img/Image.svg" alt="img1" class="img1" />
-        <p id="madrid">Madrid</p>
-        <img src="section-3-img/star 1.svg" alt="star" class="star" />
-        <p id="rating1">4.8</p>
-        <img src="section-3-img/Vector.svg" alt="vector" class="vector" />
-        <p class="country">Spain</p>
-        <p id="canceled">$950</p>
-        <p id="current-prise">$850</p>
-        <div class="bg"></div>
-      </div>
-      <div id="img2">
-        <img src="section-3-img/Image (1).svg" alt="img2" class="img1" />
-        <p id="madrid">Firenze</p>
-        <img src="section-3-img/star 1.svg" alt="star" class="star" />
-        <p id="rating1">4.5</p>
-        <img src="section-3-img/Vector.svg" alt="vector" class="vector" />
-        <p class="country">Italy</p>
-        <p id="canceled">$850</p>
-        <p id="current-prise">$750</p>
-        <div class="bg"></div>
-      </div>
-      <div id="img3">
-        <img src="section-3-img/Image (2).svg" alt="img3" class="img1" />
-        <p id="madrid">Paris</p>
-        <img src="section-3-img/star 1.svg" alt="star" class="star" />
-        <p id="rating1">4.4</p>
-        <img src="section-3-img/Vector.svg" alt="vector" class="vector" />
-        <p class="country">France</p>
-        <p id="canceled">$699</p>
-        <p id="current-prise">$599</p>
-        <div class="bg"></div>
-      </div>
-      <div id="img4">
-        <img src="section-3-img/Image (3).svg" alt="img4" class="img1" />
-        <p id="madrid">Paris</p>
-        <img src="section-3-img/star 1.svg" alt="star" class="star" />
-        <p id="rating1">4.4</p>
-        <img src="section-3-img/Vector.svg" alt="vector" class="vector" />
-        <p class="country">France</p>
-        <p id="canceled">$699</p>
-        <p id="current-prise">$599</p>
-        <div class="bg"></div>
-      </div>
-      <img src="section-4-img/arrow-left-circle.svg" alt="btn1" id="btn1" />
-      <img src="section-4-img/arrow-right-circle.svg" alt="btn2" id="btn2" />
+    <!-- Popular Destinations -->
+    <section id="section3" class="container">
+        <div class="section-header">
+            <h1>Exclusive <span class="highlighter">deals & discounts</span></h1>
+            <p>Discover your perfect destination with our expertly crafted tours</p>
+        </div>
+        <div class="tours-grid">
+            <div class="tour-card">
+                <div class="tour-img">
+                    <img src="section-3-img/Image.svg" alt="Madrid, Spain">
+                </div>
+                <div class="tour-info">
+                    <div class="tour-location">
+                        <h4>Madrid</h4>
+                        <div class="tour-rating">
+                            <img src="section-3-img/star 1.svg" alt="star">
+                            <span>4.8</span>
+                        </div>
+                    </div>
+                    <p><img src="section-3-img/Vector.svg" alt="location"> Spain</p>
+                    <div class="tour-price">
+                        <span class="old-price">$950</span>
+                        <span class="current-price">$850</span>
+                    </div>
+                </div>
+            </div>
+            <div class="tour-card">
+                <div class="tour-img">
+                    <img src="section-3-img/Image (1).svg" alt="Firenze, Italy">
+                </div>
+                <div class="tour-info">
+                    <div class="tour-location">
+                        <h4>Firenze</h4>
+                        <div class="tour-rating">
+                            <img src="section-3-img/star 1.svg" alt="star">
+                            <span>4.5</span>
+                        </div>
+                    </div>
+                    <p><img src="section-3-img/Vector.svg" alt="location"> Italy</p>
+                    <div class="tour-price">
+                        <span class="old-price">$850</span>
+                        <span class="current-price">$750</span>
+                    </div>
+                </div>
+            </div>
+            <div class="tour-card">
+                <div class="tour-img">
+                    <img src="section-3-img/Image (2).svg" alt="Paris, France">
+                </div>
+                <div class="tour-info">
+                    <div class="tour-location">
+                        <h4>Paris</h4>
+                        <div class="tour-rating">
+                            <img src="section-3-img/star 1.svg" alt="star">
+                            <span>4.4</span>
+                        </div>
+                    </div>
+                    <p><img src="section-3-img/Vector.svg" alt="location"> France</p>
+                    <div class="tour-price">
+                        <span class="old-price">$699</span>
+                        <span class="current-price">$599</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slider-controls">
+            <button class="slider-btn"><i class="fas fa-arrow-left"></i></button>
+            <button class="slider-btn"><i class="fas fa-arrow-right"></i></button>
+        </div>
     </section>
 
+    <!-- Vacation Plans -->
     <section id="section4">
-      <h1>
-        Best<span style="color: rgb(250, 116, 54, 100%)"> vacation plan</span>
-      </h1>
-      <p>
-        We ensure that you’ll embark on a perfectly planned, safe vacation at a
-        price you can afford.
-      </p>
-      <img src="section-4-img/Element.svg" alt="element" id="tree" />
-      <div id="img5">
-        <img src="section-4-img/Image.svg" alt="img4" class="img5" />
-        <p id="madrid1">Rome, Italty</p>
-        <img src="section-4-img/star 1.svg" alt="star" class="star1" />
-        <p id="rating11">4.4</p>
-        <img src="section-4-img/Navigation.svg" alt="vector" class="vector1" />
-        <p class="country1" style="font-size: 12px">10 Days Trip</p>
-        <p id="current-prise1">$5,42K</p>
-        <div class="bg1"></div>
-      </div>
-      <div id="img6">
-        <img src="section-4-img/Image (1).svg" alt="img4" class="img6" />
-        <p id="madrid1">London,UK</p>
-        <div id="detailes2">
-          <img src="section-4-img/star 1.svg" alt="star1" class="star1" />
-          <p id="rating11">4.7</p>
-          <img
-            src="section-4-img/Navigation.svg"
-            alt="vector1"
-            class="vector1"
-          />
-          <p class="country1" style="font-size: 12px">07 Days Trip</p>
-          <p id="current-prise1">$2,42K</p>
-          <div class="bg1"></div>
+        <div class="container">
+            <div class="section-header">
+                <h1>Best <span class="highlighter">vacation plan</span></h1>
+                <p>Plan your perfect vacation with our expertly crafted itineraries</p>
+            </div>
+            <div class="tours-grid">
+                <div class="tour-card">
+                    <div class="tour-img">
+                        <img src="section-4-img/Image.svg" alt="Rome, Italy">
+                    </div>
+                    <div class="tour-info">
+                        <div class="tour-location">
+                            <h4>Rome, Italy</h4>
+                            <div class="tour-rating">
+                                <img src="section-4-img/star 1.svg" alt="star">
+                                <span>4.8</span>
+                            </div>
+                        </div>
+                        <p><img src="section-4-img/Navigation.svg" alt="duration"> 10 Days Trip</p>
+                        <div class="tour-price">
+                            <span class="current-price">$5,42K</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tour-card">
+                    <div class="tour-img">
+                        <img src="section-4-img/Image (1).svg" alt="London, UK">
+                    </div>
+                    <div class="tour-info">
+                        <div class="tour-location">
+                            <h4>London, UK</h4>
+                            <div class="tour-rating">
+                                <img src="section-4-img/star 1.svg" alt="star">
+                                <span>4.6</span>
+                            </div>
+                        </div>
+                        <p><img src="section-4-img/Navigation.svg" alt="duration"> 12 Days Trip</p>
+                        <div class="tour-price">
+                            <span class="current-price">$4,2K</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tour-card">
+                    <div class="tour-img">
+                        <img src="section-4-img/Image (2).svg" alt="Full Europe">
+                    </div>
+                    <div class="tour-info">
+                        <div class="tour-location">
+                            <h4>Full Europe</h4>
+                            <div class="tour-rating">
+                                <img src="section-4-img/star 1.svg" alt="star">
+                                <span>4.9</span>
+                            </div>
+                        </div>
+                        <p><img src="section-4-img/Navigation.svg" alt="duration"> 28 Days Trip</p>
+                        <div class="tour-price">
+                            <span class="current-price">$15K</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div id="img7">
-        <img src="section-4-img/Image (2).svg" alt="img4" class="img6" />
-        <p id="madrid1">London,UK</p>
-        <div id="detailes2">
-          <img src="section-4-img/star 1.svg" alt="star1" class="star1" />
-          <p id="rating11">4.7</p>
-          <img
-            src="section-4-img/Navigation.svg"
-            alt="vector1"
-            class="vector1"
-          />
-          <p class="country1" style="font-size: 12px">07 Days Trip</p>
-          <p id="current-prise1">$2,42K</p>
-          <div class="bg1"></div>
-        </div>
-      </div>
-      <img src="section-4-img/arrow-left-circle.svg" alt="btn1" id="btn11" />
-      <img src="section-4-img/arrow-right-circle.svg" alt="Arrow" id="btn22" />
     </section>
+
+    <!-- Testimonials -->
     <section id="section4-1">
-      <img src="section-4-img/Element1.svg" alt="tree" id="tree2" />
-      <h1>
-        What people say<span style="color: rgb(250, 116, 54, 100%)">
-          about Us.</span
-        >
-      </h1>
-
-      <p>
-        We ensure that you’ll embark on a perfectly planned, safe vacation at a
-        price you can afford.
-      </p>
-      <img src="section-4-img/arrow-left-circle.svg" alt="btn1" id="btn111" />
-      <img src="section-4-img/arrow-right-circle.svg" alt="Arrow" id="btn222" />
-      <div id="happy">
-        <img src="section-4-img/man.svg" alt="men" id="men" />
-        <p>
-          “On the Windows talking painted pasture yet its express parties use.
-          Sure last upon he same as knew next. Of believed or diverted no.”
-        </p>
-        <br />
-        <h3>Mike taylor</h3>
-        <br />
-        <p style="color: gray">Lahore, Pakistan</p>
-      </div>
-      <div id="happy1">
-        <h3>Chris Thomas</h3>
-        <p style="color: gray">CEO of Red Button</p>
-      </div>
-    </section>
-    <section id="section5">
-      <h1>
-        Get update with<span style="color: rgb(250, 116, 54, 100%)">
-          latest blog</span
-        >
-      </h1>
-      <p>
-        We ensure that you’ll embark on a perfectly planned, safe vacation at a
-        price you can afford.
-      </p>
-      <div class="img15">
-        <img src="section-5-img/Image.svg" alt="img15" id="img15" />
-
-        <p style="padding: 10px">
-          The Amazing Difference a Year of Travelling .
-        </p>
-        <br />
-        <p style="font-size: 15px; color: gray; padding-left: 9px">
-          July 27, 2021
-        </p>
-      </div>
-      <div class="img16">
-        <img src="section-5-img/Image (1).svg" alt="img15" id="img16" />
-        <p style="padding: 10px">
-          The Amazing Difference a Year of Travelling .
-        </p>
-        <br />
-        <p style="font-size: 15px; color: gray; padding-left: 9px">
-          July 27, 2021
-        </p>
-      </div>
-      <div class="img17">
-        <img src="section-5-img/Image (2).svg" alt="img15" id="img17" />
-        <p style="padding: 10px">
-          The Amazing Difference a Year of Travelling .
-        </p>
-        <br />
-        <p style="font-size: 15px; color: gray; padding-left: 9px">
-          July 27, 2021
-        </p>
-      </div>
-      <div class="img18">
-        <img src="section-5-img/Image (3).svg" alt="img15" id="img18" />
-        <p style="padding: 10px">
-          The Amazing Difference a Year of Travelling .
-        </p>
-        <br />
-        <p style="font-size: 15px; color: gray; padding-left: 9px">
-          July 27, 2021
-        </p>
-        <p id="dots">
-          <span class="dot1">.</span><span class="dot1">.</span
-          ><span class="dot1">.</span>
-        </p>
-      </div>
-      <div id="search-box">
-        <h1 style="text-align: center; color: white">
-          Subscribe and get exclusive deals & offer
-        </h1>
-        <input type="text" />
-        <button>Subscribe</button>
-      </div>
-      <div id="last">
-        <h3>Trabook <img src="nav-image/Vector.svg" alt="lofo" /></h3>
-        <p style="color: gray">
-          Book your trip in minute, get full Control for much longer.
-        </p>
-        <img src="section-5-img/facebook.svg" id="facebook" />
-        <img src="section-5-img/instagram.svg" id="instagram" />
-        <img src="section-5-img/twitter.svg" id="twitter" />
-        <div id="colum1">
-          <p>Company</p>
-          <p style="color: gray">About</p>
-          <p style="color: gray">Careers</p>
-          <p style="color: gray">Logistic</p>
-          <p style="color: gray">Privacy & Policy</p>
+        <div class="container">
+            <div class="section-header">
+                <h1>What people say <span class="highlighter">about Us.</span></h1>
+                <p>We ensure that you'll embark on a perfectly planned, safe vacation at a price you can afford.</p>
+            </div>
+            <div class="testimonial">
+                <img src="section-4-img/man.svg" alt="Mike Taylor">
+                <p>"On the Windows talking painted pasture yet its express parties use. Sure last upon he same as knew next. Of believed or diverted no."</p>
+                <h4>Mike Taylor</h4>
+                <p class="location">Lahore, Pakistan</p>
+            </div>
+            <img src="section-4-img/Element1.svg" alt="decorative element" id="tree2">
         </div>
-      </div>
-      <div id="colum2">
-        <p>Contact</p>
-        <p style="color: gray">Help/FAQ</p>
-        <p style="color: gray">Press</p>
-        <p style="color: gray">Affilates</p>
-      </div>
-      <div id="colum3">
-        <p>More</p>
-        <p style="color: gray">Press Centre</p>
-        <p style="color: gray">Our Blog</p>
-        <p style="color: gray">Low fare tips</p>
-      </div>
-      <hr />
-      <footer id="footer">
-        <p id="p1">Copyright, Trabook 2022. All rights reserved.</p>
-        <p id="p2">Terms & Conditions</p>
-      </footer>
     </section>
-  </body>
+
+    <!-- Blog Section -->
+    <section id="section5">
+        <div class="container">
+            <div class="section-header">
+                <h1>Get update with <span class="highlighter">latest blog</span></h1>
+                <p>We ensure that you'll embark on a perfectly planned, safe vacation at a price you can afford.</p>
+            </div>
+            <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <img src="section-5-img/Image.svg" alt="Travel blog">
+                    </div>
+                    <div class="blog-content">
+                        <h3>The Amazing Difference a Year of Travelling.</h3>
+                        <p class="blog-date">July 27, 2021</p>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <img src="section-5-img/Image (1).svg" alt="Travel blog">
+                    </div>
+                    <div class="blog-content">
+                        <h3>Travel far enough, you meet yourself.</h3>
+                        <p class="blog-date">July 27, 2021</p>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <img src="section-5-img/Image (2).svg" alt="Travel blog">
+                    </div>
+                    <div class="blog-content">
+                        <h3>How to Save Money While Visiting Africa.</h3>
+                        <p class="blog-date">July 27, 2021</p>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <img src="section-5-img/Image (3).svg" alt="Travel blog">
+                    </div>
+                    <div class="blog-content">
+                        <h3>Reflections on 5 Months of Travel: Time to Hang.</h3>
+                        <p class="blog-date">July 27, 2021</p>
+                    </div>
+                </div>
+            </div>
+            <div id="search-box">
+                <h1>Subscribe and get exclusive deals & offer</h1>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email">
+                    <button type="submit" class="btn">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h3>Trabook <img src="nav-image/Vector.svg" alt="logo"></h3>
+                    <p>Book your trip in minute, get full Control for much longer.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Logistic</a></li>
+                        <li><a href="#">Privacy & Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="#">Help/FAQ</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Affilates</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>More</h4>
+                    <ul>
+                        <li><a href="#">Press Centre</a></li>
+                        <li><a href="#">Our Blog</a></li>
+                        <li><a href="#">Low fare tips</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>Copyright, Trabook 2022. All rights reserved. <a href="#">Terms & Conditions</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuIcon = document.getElementById('menu-icon');
+        const dropDown = document.getElementById('drop-down');
+
+        menuIcon.addEventListener('click', () => {
+            dropDown.classList.toggle('show');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!menuIcon.contains(e.target) {
+                dropDown.classList.remove('show');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
 </html>
